@@ -10,7 +10,9 @@ import SwiftUI
 struct MainView: View {
     @State private var foodType = 0
     @State private var isSheetShowing:Bool = false
-    var body: some View {
+    @EnvironmentObject var dataStore : DataStore
+    @State private var newPizza = PizzaModel(name: "", ingredients: "", imageName: "", thumbnailName: "", type: "")
+        var body: some View {
         VStack{
             NavigationView{
                 NavigationStack{
@@ -29,10 +31,7 @@ struct MainView: View {
 
                         }
                     }
-//                    .navigationTitle("Pizza App")
                     .navigationBarTitleDisplayMode(.inline)
-                    
-
                     .toolbar {
                                 ToolbarItem(placement: .navigationBarLeading) {
                                     Button {
@@ -43,31 +42,31 @@ struct MainView: View {
                                     }
                                 }
                         
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            Text("Pizza App")
-                                .font(.system(size: 24))
-                                .foregroundColor(Color.orange)
-                                .bold()
-                        }
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button {
-                               // isSheetShowing.toggle()
-                            } label: {
-                                Image(systemName: "magnifyingglass")
-                                    .foregroundColor(Color.orange)
-                            }
-                        }
+                                ToolbarItem(placement: .navigationBarLeading) {
+                                    Text("Pizza App")
+                                        .font(.system(size: 24))
+                                        .foregroundColor(Color.orange)
+                                        .bold()
+                                }
                                 ToolbarItem(placement: .navigationBarTrailing) {
                                     Button {
-                                        isSheetShowing.toggle()
+                                       // isSheetShowing.toggle()
                                     } label: {
-                                        Image(systemName: "plus")
+                                        Image(systemName: "magnifyingglass")
                                             .foregroundColor(Color.orange)
                                     }
                                 }
-                            }
+                                        ToolbarItem(placement: .navigationBarTrailing) {
+                                            Button {
+                                                isSheetShowing.toggle()
+                                            } label: {
+                                                Image(systemName: "plus")
+                                                    .foregroundColor(Color.orange)
+                                            }
+                                        }
+                                    }
                     .sheet(isPresented: $isSheetShowing){
-                        AddNewPizzaView()
+                        AddNewPizzaView(pizzaModel: $newPizza)
                         }
                     
                     VStack{
@@ -92,6 +91,7 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
+            .environmentObject(DataStore())
     }
 }
 
@@ -100,13 +100,18 @@ struct AllPage: View{
     @State var foodType = 0
    // @ObservedObject var pizzaViewModel: PizzaViewModel = PizzaViewModel()
     @ObservedObject var dataStore: DataStore = DataStore()
+    @EnvironmentObject var pizzaVM: DataStore
 
 
     var body: some View{
         NavigationView{
             VStack {
                 List() {
-                    ForEach(dataStore.pizzas){ pizza in
+                    ForEach(pizzaVM.pizzas){ pizza in
+                        NavigationLink{
+                            DetailView(pizzaName: pizza.name, ingredientName: pizza.ingredients, imageName: pizza.imageName)
+                        }
+                    label:{
                         HStack(alignment: .center){
                             Image("\(pizza.imageName)")
                                 .resizable()
@@ -129,11 +134,8 @@ struct AllPage: View{
                             
                             
                         }
+                    }
                         
-                        
-                        
-                        
-
                     }
                 }
                 .listStyle(InsetGroupedListStyle())
@@ -146,6 +148,8 @@ struct AllPage: View{
 struct MeatPage: View{
     @State var foodType = 0
     @ObservedObject var dataStore: DataStore = DataStore()
+    @EnvironmentObject var pizzaVM: DataStore
+
     init() {
         UITableView.appearance().backgroundColor = .red
         
@@ -154,10 +158,14 @@ struct MeatPage: View{
         NavigationView{
             ZStack {
                 List() {
-                    ForEach(dataStore.pizzas){ pizza in
+                    ForEach(pizzaVM.pizzas){ pizza in
 
       //                  Text("\(pizza.name)")
                         if(pizza.type == PizzaType.meat.rawValue){
+                            NavigationLink{
+                                DetailView(pizzaName: pizza.name, ingredientName: pizza.ingredients, imageName: pizza.imageName)
+                            }
+                        label:{
                             HStack(alignment: .center){
                                 Image("\(pizza.imageName)")
                                     .resizable()
@@ -176,10 +184,9 @@ struct MeatPage: View{
                                         .multilineTextAlignment(.leading)
                                 }
                                 .frame(width: 150)
-                                
-                                
-                                
                             }
+                        }
+                            
                         }
 
 
@@ -195,16 +202,18 @@ struct MeatPage: View{
 struct VeggiePage: View{
     @State var foodType = 0
     @ObservedObject var dataStore: DataStore = DataStore()
-
+    @EnvironmentObject var pizzaVM: DataStore
 
     var body: some View{
         NavigationView{
             ZStack {
                 List() {
-                    ForEach(dataStore.pizzas){ pizza in
-
-      //                  Text("\(pizza.name)")
+                    ForEach(pizzaVM.pizzas){ pizza in
                         if(pizza.type == PizzaType.vegetarian.rawValue){
+                            NavigationLink{
+                                DetailView(pizzaName: pizza.name, ingredientName: pizza.ingredients, imageName: pizza.imageName)
+                            }
+                        label:{
                             HStack(alignment: .center){
                                 Image("\(pizza.imageName)")
                                     .resizable()
@@ -223,10 +232,9 @@ struct VeggiePage: View{
                                         .multilineTextAlignment(.leading)
                                 }
                                 .frame(width: 150)
-                                
-                                
-                                
                             }
+                        }
+                            
                         }
 
 

@@ -17,7 +17,7 @@ struct PizzaModel: Identifiable{
     var thumbnailName: String
     var type: String
     
-    
+       
     static var samplePizzaModel: [PizzaModel] {
         [
             PizzaModel(

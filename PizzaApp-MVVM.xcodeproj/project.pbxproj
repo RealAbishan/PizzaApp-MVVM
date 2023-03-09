@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A2AA40B29BA40AD00AE4F72 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2AA40A29BA40AD00AE4F72 /* DetailView.swift */; };
 		3A430E9029B9BD760085654E /* PizzaApp_MVVMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A430E8F29B9BD760085654E /* PizzaApp_MVVMApp.swift */; };
 		3A430E9229B9BD760085654E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A430E9129B9BD760085654E /* ContentView.swift */; };
 		3A430E9429B9BD780085654E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A430E9329B9BD780085654E /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A2AA40A29BA40AD00AE4F72 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		3A430E8C29B9BD760085654E /* PizzaApp-MVVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PizzaApp-MVVM.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A430E8F29B9BD760085654E /* PizzaApp_MVVMApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaApp_MVVMApp.swift; sourceTree = "<group>"; };
 		3A430E9129B9BD760085654E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				3A430E9E29B9BEC80085654E /* MainView.swift */,
 				3A430EA029B9BED90085654E /* FavouriteView.swift */,
 				3A430EAD29B9CCD70085654E /* AddNewPizzaView.swift */,
+				3A2AA40A29BA40AD00AE4F72 /* DetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 				3A430EA629B9BFB10085654E /* Constants.swift in Sources */,
 				3A430EAC29B9C0000085654E /* DataStore.swift in Sources */,
 				3A430E9229B9BD760085654E /* ContentView.swift in Sources */,
+				3A2AA40B29BA40AD00AE4F72 /* DetailView.swift in Sources */,
 				3A430EAE29B9CCD70085654E /* AddNewPizzaView.swift in Sources */,
 				3A430EA829B9BFCC0085654E /* PizzaModel.swift in Sources */,
 				3A430EAA29B9BFE90085654E /* PizzaViewModel.swift in Sources */,

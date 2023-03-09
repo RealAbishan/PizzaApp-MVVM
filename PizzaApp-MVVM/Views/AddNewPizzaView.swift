@@ -8,11 +8,19 @@
 import SwiftUI
 
 struct AddNewPizzaView: View {
-
+    
+    @State private var pizzaName: String = ""
+    @State private var ingredient: String = ""
+    @State private var imageName: String = ""
+    @State private var thumbnailImageName: String = ""
+    @State private var pizzaTye: PizzaType = PizzaType.vegetarian
+    
+    @State private var navigateToReceipe = false
+    @Binding var pizzaModel: PizzaModel
     @Environment(\.dismiss) var dismiss
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var dataStore: DataStore
-    @ObservedObject var pizzaviewModel: PizzaViewModel = PizzaViewModel()
+   // @ObservedObject var pizzaviewModel: PizzaViewModel = PizzaViewModel()
     //@Binding var pizzaModel: PizzaModel
     
     var body: some View {
@@ -22,33 +30,33 @@ struct AddNewPizzaView: View {
                     Section(header: Text("Pizza Name").foregroundColor(Color.orange)
                         .font(.system(size: 18)))
                         {
-                            TextField("Please Enter Pizza Name", text: $pizzaviewModel.name)
+                            TextField("Please Enter Pizza Name", text: $pizzaName)
                                 .foregroundColor(Color.orange)
                         }
                     Section(header: Text("Ingredients").foregroundColor(Color.orange)
                         .font(.system(size: 18)))
                         {
-                            TextField("Please Enter Ingredients", text: $pizzaviewModel.name)
+                            TextField("Please Enter Ingredients", text: $ingredient)
                                 .foregroundColor(Color.orange)
                         }
                     Section(header: Text("Image Name").foregroundColor(Color.orange)
                         .font(.system(size: 18)))
                         {
-                            TextField("Please Enter Image Name", text: $pizzaviewModel.name)
+                            TextField("Please Enter Image Name", text: $imageName)
                                 .foregroundColor(Color.orange)
                         }
                     
                     Section(header: Text("Thumbnail Image").foregroundColor(Color.orange)
                         .font(.system(size: 18)))
                         {
-                            TextField("Please Enter Thumbnail Image Name", text: $pizzaviewModel.name)
+                            TextField("Please Enter Thumbnail Image Name", text: $thumbnailImageName)
                                 .foregroundColor(Color.orange)
                         }
 
                     Section(header: Text("Pizza Type").foregroundColor(Color.orange)
                         .font(.system(size: 18))) {
                         Picker(
-                            selection: $pizzaviewModel.type, label: Text("Type")) {
+                            selection: $pizzaTye, label: Text("Type")) {
                             Text("Meat").tag("meat")
                             Text("Vegetarian").tag("vegetarian")
                         }
@@ -63,10 +71,8 @@ struct AddNewPizzaView: View {
                     
                     Section(){
                             Button(action: {
-                //                            dataStore.pizzas.append(pizzaviewModel)
-                //                            presentationMode.wrappedValue.dismiss()
-                //                            dataStore.addPizzas(pizzaviewModel)
-                // save each time new one is added as alternative to didSet in class
+                                savePizza()
+                                presentationMode.wrappedValue.dismiss()
                             }) {
                                 HStack {
                                         Image(systemName: "paperplane")
@@ -83,7 +89,7 @@ struct AddNewPizzaView: View {
                             }
                             .padding(.trailing,1)
                             .padding(.leading,70)
-                            .disabled(pizzaviewModel.name.isEmpty || pizzaviewModel.ingredients.isEmpty || pizzaviewModel.imageName.isEmpty || pizzaviewModel.thumbnailName.isEmpty)
+                            .disabled(pizzaName.isEmpty || ingredient.isEmpty || imageName.isEmpty || thumbnailImageName.isEmpty)
                     }
                     .frame(maxWidth: 235)
                 }
@@ -97,10 +103,21 @@ struct AddNewPizzaView: View {
                                 }
                             }
                             ToolbarItem(placement: .navigationBarTrailing) {
+//                                NavigationLink(isActive: $navigateToReceipe){
+//                                    MainView(dataStore: )
+//
+//                                }
+//                            label:{
+//
+//                            }
                                 Button {
-                                   // isSheetShowing.toggle()
+                                    //dataStore.pizzas.append(pizzaModel)
+                                    //presentationMode.wrappedValue.dismiss()
+                                   // dataStore.addPizzas(pizza: pizzaModel)
+                                    //savePizza()
+
                                 } label: {
-                                    Text("Save")
+                                    Text("Dismiss")
                                         .foregroundColor(Color.orange)
                                 }
                             }
@@ -111,10 +128,18 @@ struct AddNewPizzaView: View {
         }
     }
 }
+//
+//struct AddNewPizzaView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AddNewPizzaView(pizzaModel: $pizzaModel)
+//            .environmentObject(DataStore())
+//
+//    }
+//}
 
-struct AddNewPizzaView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddNewPizzaView()
+extension AddNewPizzaView{
+    private func savePizza(){
+        let pizza = PizzaModel(name: pizzaModel.name, ingredients: pizzaModel.ingredients, imageName: pizzaModel.imageName, thumbnailName: pizzaModel.thumbnailName, type: pizzaModel.type)
+        dataStore.addPizzas(pizza: pizza)
     }
 }
-

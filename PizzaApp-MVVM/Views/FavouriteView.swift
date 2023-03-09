@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct FavouriteView: View {
+    @EnvironmentObject var dataStore: DataStore
+
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
@@ -16,5 +18,7 @@ struct FavouriteView: View {
 struct FavouriteView_Previews: PreviewProvider {
     static var previews: some View {
         FavouriteView()
+            .environmentObject(DataStore())
+
     }
 }

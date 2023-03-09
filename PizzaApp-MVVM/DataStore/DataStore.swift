@@ -11,12 +11,17 @@ import SwiftUI
 class DataStore: ObservableObject{
     
     @Published var pizzas: [PizzaModel] = []
+    @StateObject var pizzaModel = PizzaViewModel()
+    
+
 
     init() {
         loadPizzas()
+        addPizzas(pizza: PizzaModel(name: "", ingredients: "", imageName: "", thumbnailName: "", type: ""))
+    
     }
     
-    func addPizzas(_ pizza: PizzaModel){
+    func addPizzas(pizza: PizzaModel){
         pizzas.append(pizza)
     }
     
@@ -29,9 +34,9 @@ class DataStore: ObservableObject{
         pizzas = PizzaModel.samplePizzaModel
     }
     
-    func savePizzas(){
-        print("Successfully Saved the Pizzas to the File System")
-    }
+//    func savePizzas(){
+//        print("Successfully Saved the Pizzas to the File System")
+//    }
 //    func addPizzas(){
 //        let pizzaDummy = FruitModel(name: "Watermelon", price: 120)
 //        fruits.append(fruitSix)
